@@ -5,6 +5,8 @@
 主模型：embedding 100 + hidden 100 + 1 LSTM layer + cross-attention
 
 ```text
+主模型：embedding 100 + hidden 100 + 1 LSTM layer + cross-attention
+│
 ├─ Attention 机制消融与比较
 │  ├─ No attention
 │  │  └─ 移除 cross-attention；若没有其他 attention，则移除全部 attention
