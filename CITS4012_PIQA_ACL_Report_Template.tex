@@ -1,0 +1,171 @@
+% CITS4012 A2 PIQA report template.
+% 说明：请只保留与最终 notebook、训练日志和结果一致的内容。
+% 最终提交前，将 Group XX 替换为你们的小组编号；不要在 author 栏填写学生姓名。
+
+\documentclass[11pt]{article}
+\usepackage[final]{acl}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{amsmath}
+
+% 不依赖外部图片的占位框：替换为真实图后可删除此命令。
+\newcommand{\placeholderbox}[3]{%
+  \fbox{\parbox[c][#2][c]{#1}{\centering\small #3}}%
+}
+
+\title{[Replace with a Descriptive PIQA Project Title]}
+\author{Group XX}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+% 用 3--5 句话填写：任务、模型、主要实验设计、最重要的发现。
+% 不要在尚未完成所有实验前填写最终 test accuracy。
+This report investigates physical commonsense reasoning on PIQA. We compare a one-layer LSTM model with cross-attention against selected baselines and controlled ablations. [Replace this placeholder with a concise, evidence-based summary of your final results.]
+\end{abstract}
+
+\section{Introduction}
+
+PIQA evaluates physical commonsense reasoning through a goal and two candidate solutions \citep{bisk2020experience}. Briefly explain why goal--solution alignment matters for this task, state the research question, and preview the experimental investigation. Do not claim that a component improves performance unless the corresponding controlled result supports that claim.
+
+\section{Methodology}
+
+\subsection{Task Formulation}
+
+For each instance, let $g$ denote the goal and let $s_1,s_2$ denote the two candidate solutions. The model outputs two scores and predicts the higher-scoring candidate. Define the training objective and notation here.
+
+\subsection{Main Model Architecture}
+
+% 本模板按用户指定的模型描述写作；提交前必须和最终 notebook 保持一致。
+The main model is: \textbf{embedding 100 + hidden 100 + 1 LSTM layer + cross-attention}. Token embeddings are encoded by a one-layer LSTM. Cross-attention uses the goal representation to weight solution tokens, producing a goal-conditioned solution representation. The final scorer compares the goal and each candidate solution.
+
+State the exact attention score function, the query/key/value roles, the classifier features, and all masking operations used by your implementation. Relate the attention formulation to relevant prior work, such as additive attention \citep{bahdanau2015neural}. If the final notebook differs from this specified architecture, replace this subsection before submission.
+
+\begin{figure}[t]
+  \centering
+  \placeholderbox{0.92\linewidth}{3.0cm}{Replace with the final architecture diagram.\\Show goal and solution inputs, embeddings, LSTM encoder, cross-attention, candidate scorer, and two output logits.}
+  \caption{Architecture of the selected main model. Replace this placeholder with a diagram matching the submitted notebook.}
+  \label{fig:architecture}
+\end{figure}
+
+\subsection{Optional In-Domain Word2Vec Initialisation}
+
+If this configuration is selected after validation-only comparison, train a 100-dimensional Skip-gram Word2Vec model \citep{mikolov2013efficient} only on PIQA \emph{training-split} goal and solution text. Use the learned vectors to initialise the embedding layer, then fine-tune the embedding during supervised model training. Otherwise, delete this subsection or report it only as an embedding-initialisation comparison.
+
+% 重要：不要使用 validation/test 文本训练 Word2Vec。
+% 重要：不要下载或评估 WordSim-353 等外部数据集；作业禁止额外外部数据。
+
+\section{Experimental Setup}
+
+\subsection{Dataset and Preprocessing}
+
+Describe the source of the course-provided PIQA data, the train/validation/test split, tokenisation, vocabulary construction, maximum sequence lengths, padding, and preprocessing. Build the vocabulary and any in-domain Word2Vec corpus from training data only. Explain that validation is used for model selection and that test is reserved for final frozen-model evaluation.
+
+\subsection{Training Configuration}
+
+Report optimizer, learning rate, batch size, dropout, weight decay, gradient clipping, maximum epochs, early stopping criterion, hardware, and random seeds. State whether embeddings are randomly initialised, Word2Vec-initialised, or frozen. Report the exact settings used for each final comparison.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Training configuration. Replace all bracketed entries with final values.}
+\label{tab:training}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Setting & Value \\
+\midrule
+Embedding dimension & 100 \\
+LSTM hidden size & 100 \\
+LSTM layers & 1 \\
+Attention mechanism & Cross-attention \\
+Embedding initialisation & [random / PIQA-train-only Word2Vec] \\
+Optimizer & [e.g., AdamW] \\
+Learning rate & [value] \\
+Batch size & [value] \\
+Dropout & [value] \\
+Seeds & [e.g., 13, 42, 2026] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Baselines and Evaluation Metrics}
+
+Describe every baseline you implement yourself and why it is informative. Suggested baselines include a trainable mean-embedding model and an LSTM without attention. Define accuracy and any confidence interval or statistical test. Published results may provide context but cannot replace your own baseline runs.
+
+\section{Results and Analysis}
+
+\subsection{Main Results and Baseline Comparison}
+
+Report the mean validation accuracy across seeds, standard deviation, and confidence interval where available. Do not rank models whose differences are within observed seed variability without a suitable statistical analysis.
+
+\begin{table*}[t]
+\centering
+\small
+\caption{Validation comparison. Fill this table only with results produced by your group.}
+\label{tab:main-results}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Model & Seeds & Validation accuracy & Std. dev. & 95\% CI & Parameters \\
+\midrule
+Mean embedding baseline & [--] & [--] & [--] & [--] & [--] \\
+LSTM without attention & [--] & [--] & [--] & [--] & [--] \\
+Main LSTM cross-attention model & [--] & [--] & [--] & [--] & [--] \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Ablation Studies}
+
+Each ablation should change one selected component or design choice while keeping data split, seed protocol, optimiser, and evaluation procedure controlled. State the hypothesis before interpreting the results.
+
+\begin{table*}[t]
+\centering
+\small
+\caption{Controlled ablations and design-choice comparisons. Retain only rows actually run.}
+\label{tab:ablations}
+\begin{tabular}{@{}p{0.25\linewidth}p{0.43\linewidth}p{0.20\linewidth}@{}}
+\toprule
+Comparison & Controlled change and question & Result / interpretation \\
+\midrule
+No attention & Remove cross-attention while preserving the LSTM encoder. Does cross-attention contribute? & [--] \\
+Goal removed & Remove the goal input while holding the remaining pipeline fixed. Does the model use goal information? & [--] \\
+Random vs. Word2Vec initialisation & Change only embedding initialisation. Does in-domain unsupervised initialisation help? & [--] \\
+Capacity variant & Change one selected size or depth setting. Is the model capacity-limited? & [--] \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Attention Visualisation and Qualitative Analysis}
+
+Show at least one correct and one incorrect prediction. Include the goal, both candidate solutions, gold label, prediction, and interpretable attention weights. Discuss what the weights reveal about successful goal--solution alignment and one failure mode. Attention plots are evidence for analysis, not proof of causality.
+
+\begin{figure*}[t]
+  \centering
+  \placeholderbox{0.45\textwidth}{3.5cm}{Correct prediction attention visualisation} \hfill
+  \placeholderbox{0.45\textwidth}{3.5cm}{Incorrect prediction attention visualisation}
+  \caption{Replace with attention visualisations from the trained model. Include input text, gold labels, and predictions in the final figure or caption.}
+  \label{fig:attention}
+\end{figure*}
+
+\subsection{Error Analysis and Limitations}
+
+Analyse representative errors and limitations supported by observed results. Possible topics include insufficient use of the goal, lexical shortcuts, unstable seed variation, limited in-domain Word2Vec coverage, or failure on multi-step physical reasoning. Do not turn speculative explanations into conclusions without evidence.
+
+\section{Conclusion}
+
+Summarise the final evidence-based findings, the strongest and weakest design choices, and one realistic direction for future work. Keep this section concise.
+
+\section*{Team Contributions}
+
+% 此部分不计入作业正文页数。简要说明每位成员的真实贡献。
+Member A: [contribution].\\
+Member B: [contribution].\\
+Member C: [contribution].
+
+\bibliography{custom}
+
+\end{document}
