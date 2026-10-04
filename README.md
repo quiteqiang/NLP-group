@@ -3,7 +3,8 @@
 ## 实验架构
 
 主模型：embedding 100 + hidden 100 + 1 LSTM layer + cross-attention
-│
+
+```text
 ├─ Attention 机制消融与比较
 │  ├─ No attention
 │  │  └─ 移除 cross-attention；若没有其他 attention，则移除全部 attention
@@ -13,9 +14,9 @@
 │  │  └─ 移除 cross-attention，只保留 goal 内部的 attention
 │  │     问题：跨序列对齐是否比单独关注 goal 词更有用？
 │  │
-│  └─ Self attention (trained query)
-│  │   └─ 用 learned-query attention pooling 替代 cross-attention
-│  │      问题：跨序列 attention 是否优于单序列的 attention pooling？
+│  ├─ Self attention (trained query)
+│  │  └─ 用 learned-query attention pooling 替代 cross-attention
+│  │     问题：跨序列 attention 是否优于单序列的 attention pooling？
 │  │
 │  └─ Cross attn + goal-side attention
 │     └─ 在主模型的 cross-attention 之外，额外加入 goal-side attention
@@ -29,3 +30,4 @@
    ├─ embedding 100 → 50
    ├─ hidden 100 → 200
    └─ LSTM 1 layer → 2 layers
+```
