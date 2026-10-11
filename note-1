@@ -22,3 +22,20 @@ V: 这是个什么object
 向量偏移
 
 多头注意力： 同时并行地做多次self attention的计算
+
+
+13.1: 第1批model
+no_attention
+goal_attention_only
+self_attention
+cross_attention_only
+cross_attention_plus_goa
+
+15B : Goal-guided attention + mean mix
+15C : Goal-guided attention + mean mix + 3种 attention 缩放方式
+
+
+
+main_model_01_test_step_15_02.ipynb Step 15D 里面的代码可以拆出来为4个block吗？
+
+移除  Step 15D 里面保存CSV/JSON 的代码
