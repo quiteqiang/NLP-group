@@ -1,0 +1,37 @@
+% ---------------------------------------------------------------------
+%  compact.sty -- space recovered by layout only, no text removed.
+%  Every length here is a knob you can turn; the comment says what it does.
+% ---------------------------------------------------------------------
+\ProvidesPackage{compact}
+% --- float separation: the single biggest saving in a float-heavy paper
+\setlength{\textfloatsep}{4pt plus 1pt minus 1pt}   % float <-> text, top/bottom of column
+\setlength{\floatsep}{4pt plus 1pt minus 1pt}       % float <-> float
+\setlength{\intextsep}{4pt plus 1pt minus 1pt}      % for [h] floats
+\setlength{\dbltextfloatsep}{5pt plus 1pt minus 1pt}% same, for 2-column floats
+\setlength{\dblfloatsep}{5pt plus 1pt minus 1pt}
+\setlength{\abovecaptionskip}{3pt}
+\setlength{\belowcaptionskip}{0pt}
+% --- let floats fill more of a page before LaTeX gives up
+\renewcommand{\topfraction}{0.92}
+\renewcommand{\bottomfraction}{0.75}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.80}
+\renewcommand{\dbltopfraction}{0.92}
+\renewcommand{\dblfloatpagefraction}{0.80}
+\setcounter{topnumber}{3}\setcounter{bottomnumber}{2}\setcounter{totalnumber}{5}
+\setcounter{dbltopnumber}{3}
+% --- display maths
+\setlength{\abovedisplayskip}{2pt plus 1pt minus 1pt}
+\setlength{\belowdisplayskip}{2pt plus 1pt minus 1pt}
+\setlength{\abovedisplayshortskip}{2pt plus 1pt}
+\setlength{\belowdisplayshortskip}{3pt plus 1pt}
+% --- captions one size down
+\RequirePackage[font=footnotesize,skip=3pt]{caption}
+% --- tables
+\renewcommand{\arraystretch}{0.92}
+\setlength{\tabcolsep}{3pt}
+% --- discourage orphans/widows without forcing bad breaks
+\clubpenalty=300 \widowpenalty=300
+% --- section heading spacing comes from the official ACL style
+\RequirePackage{enumitem}
+\setlist{nosep,leftmargin=*,topsep=2pt,partopsep=0pt,itemsep=1pt,parsep=0pt}

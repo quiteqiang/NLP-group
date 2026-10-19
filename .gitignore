@@ -9,3 +9,6 @@
 *.synctex.gz
 *.toc
 *.pdf
+.DS_Store
+~$*
+__pycache__/

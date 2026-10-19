@@ -39,3 +39,48 @@ cross_attention_plus_goa
 main_model_01_test_step_15_02.ipynb Step 15D 里面的代码可以拆出来为4个block吗？
 
 移除  Step 15D 里面保存CSV/JSON 的代码
+
+
+[RUN] Environment set-up
+[RUN] Download the PIQA data from Drive
+Step 1: Text processing and reading the data
+Step 3: Split the training set
+Step 4: Vocabulary and make_batch_input
+Step 5: Dumb baselines
+用来生成 Step 13.5 需要的 floor
+Step 6: The three attention functions
+Step 7: The model
+Step 8: train and predict
+[RUN] The base configuration
+
+
+
+17.5	A2–A3 Configuration Effect
+17.4	Temperature Scaling Comparison
+17.2	Baseline Attention Ablation
+16 Step 15B: Validation accuracy by configuration
+
+Colab 重启后，你希望运行哪些前置步骤？
+
+
+12.5 有结果； table
+13.B.4 有结果； table； A1 使用 goal-guided solution attention，并加入 mean mix；再测试 A2、A3 的四种开关组合。
+13.C.4 有结果； table； 固定使用 A1 和 mean mix，比较三种 attention score 缩放方式：不缩放、固定va缩放，learned temperature。此步骤关闭 A2、A3，以便单独比较温度。
+13.D.4 有结果； table； 将 learned temperature 与158 的A1、mean mix 组合起来，再次测试 A2、A3 的四种组合。它不要求先运行 15B/15C，但模型设计上是这些组件的组合。
+13.E.4 有结果； table； 在 15D 的基础上新增 full-goal token attention 残差，同时保留goal-guided solution attention, mean mix, learned temperature, 以及 A2/A3 配置。
+
+SUCCESS_INDEX
+321
+333
+222
+
+
+failure ranked
+[  5  64  77 216 238 287 428 647 659 728 767 772 779 830 886 105 463 614
+ 635 686]
+
+
+ TODO: 
+ 添加 reference       --done
+ 简化公式 ablation    --done
+ 
